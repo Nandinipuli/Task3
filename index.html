@@ -1,0 +1,107 @@
+@@ -0,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Advanced Styling and JavaScript</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f0f4f8;
+        }
+
+        h1 {
+            color: #004080;
+        }
+
+        .quiz, .joke {
+            margin-top: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+        }
+
+        label, p {
+            font-size: 18px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #004080;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0055aa;
+        }
+
+        /* Media Query for Responsive Design */
+        @media (max-width: 600px) {
+            body {
+                background-color: #e0f7fa;
+            }
+            h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Advanced Styling and JavaScript Demo</h1>
+
+    <!-- Quiz Section -->
+    <div class="quiz">
+        <p><strong>Quiz:</strong> What does CSS stand for?</p>
+        <label><input type="radio" name="answer" value="A"> Creative Style Sheet</label><br>
+        <label><input type="radio" name="answer" value="B"> Cascading Style Sheets</label><br>
+        <label><input type="radio" name="answer" value="C"> Colorful Style Sheets</label><br>
+        <button onclick="checkAnswer()">Submit Answer</button>
+        <p id="quiz-result"></p>
+    </div>
+
+    <!-- Joke API Section -->
+    <div class="joke">
+        <p><strong>Want a joke?</strong></p>
+        <button onclick="getJoke()">Get Joke</button>
+        <p id="joke-output"></p>
+    </div>
+
+    <script>
+        // Quiz Logic
+        function checkAnswer() {
+            const selected = document.querySelector('input[name="answer"]:checked');
+            const result = document.getElementById('quiz-result');
+            if (selected && selected.value === "B") {
+                result.textContent = "Correct! CSS stands for Cascading Style Sheets.";
+                result.style.color = "green";
+            } else {
+                result.textContent = "Incorrect. Try again!";
+                result.style.color = "red";
+            }
+        }
+
+        // Joke API Logic
+        function getJoke() {
+            fetch("https://official-joke-api.appspot.com/jokes/random")
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('joke-output').textContent = data.setup + " — " + data.punchline;
+                })
+                .catch(err => {
+                    document.getElementById('joke-output').textContent = "Failed to fetch joke.";
+                });
+        }
+    </script>
+
+</body>
+</html>
